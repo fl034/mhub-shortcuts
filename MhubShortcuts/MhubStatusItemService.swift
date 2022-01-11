@@ -13,7 +13,7 @@ class MhubStatusItemService {
     
     private let mhubControlService: MhubControlService
     
-    init(mhubControlService: MhubControlService) {
+    init(mhubControlService: MhubControlService = MhubControlService()) {
         self.mhubControlService = mhubControlService
         setup()
     }
@@ -29,6 +29,7 @@ class MhubStatusItemService {
         statusItem?.button?.title = ""
         
         mhubControlService.onStatusUpdate = onStatusUpdate(result:)
+        mhubControlService.startStatusUpdateObserving()
     }
     
     func onStatusUpdate(result: Result<Mhub.StatusResponse, Mhub.Error>) {

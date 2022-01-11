@@ -15,12 +15,40 @@ class MhubControlService {
         self.baseUrl = baseUrl
     }
     
-    var onStatusUpdate: ((Result<Mhub.StatusResponse, Mhub.Error>)->())?
+    var onStatusUpdate: ((Result<Mhub.StatusResponse, Mhub.Error>)->())? {
+        didSet {
+            // Initial fire
+            onStatusUpdateObservingTimerFire()
+        }
+    }
     
     // MARK: - Continuous updates
     
-    let interval: TimeInterval = 15
+    private var timer: Timer?
+    private let interval: TimeInterval = 15
     
+    func startStatusUpdateObserving() {
+        guard timer == nil else { return }
+        
+        timer = Timer.scheduledTimer(
+            withTimeInterval: 15,
+            repeats: true,
+            block: { [weak self] _ in
+                self?.onStatusUpdateObservingTimerFire()
+            }
+        )
+    }
+    
+    func stopStatusUpdateObserving() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    private func onStatusUpdateObservingTimerFire() {
+        getStatus { [weak self] result in
+            self?.onStatusUpdate?(result)
+        }
+    }
     
     // MARK: - Networking general
     
@@ -39,20 +67,22 @@ class MhubControlService {
         urlSession.dataTask(
             with: url,
             completionHandler: { data, response, error in
-                guard let data = data else {
-                    completion(.failure(.networking(error)))
-                    return
-                }
-                
-                do {
-                    let result = try self.decoder.decode(Mhub.Response<ResponseData>.self, from: data)
-                    guard let data = result.data else {
-                        completion(.failure(.noDataObject(result.error)))
+                DispatchQueue.main.async {
+                    guard let data = data else {
+                        completion(.failure(.networking(error)))
                         return
                     }
-                    completion(.success(data))
-                } catch {
-                    completion(.failure(.decoding(error)))
+                    
+                    do {
+                        let result = try self.decoder.decode(Mhub.Response<ResponseData>.self, from: data)
+                        guard let data = result.data else {
+                            completion(.failure(.noDataObject(result.error)))
+                            return
+                        }
+                        completion(.success(data))
+                    } catch {
+                        completion(.failure(.decoding(error)))
+                    }
                 }
             }
         ).resume()
