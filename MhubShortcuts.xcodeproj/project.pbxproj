@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		017FF458278E0439002751AA /* PersistedProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FF457278E0439002751AA /* PersistedProperty.swift */; };
+		017FF45A278E3FF6002751AA /* CzvMhubConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FF459278E3FF6002751AA /* CzvMhubConfiguration.swift */; };
 		01C1E4BB278C6A0200E5300A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4BA278C6A0200E5300A /* AppDelegate.swift */; };
 		01C1E4BD278C6A0200E5300A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4BC278C6A0200E5300A /* ViewController.swift */; };
 		01C1E4BF278C6A0200E5300A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01C1E4BE278C6A0200E5300A /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		017FF457278E0439002751AA /* PersistedProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistedProperty.swift; sourceTree = "<group>"; };
+		017FF459278E3FF6002751AA /* CzvMhubConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CzvMhubConfiguration.swift; sourceTree = "<group>"; };
 		01C1E4B7278C6A0200E5300A /* MhubShortcuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MhubShortcuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C1E4BA278C6A0200E5300A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01C1E4BC278C6A0200E5300A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				01C1E4E5278C6B3700E5300A /* MhubStatusItemService.swift */,
 				01C1E4E8278C6CC100E5300A /* MhubControlService.swift */,
 				01C1E4EA278C75D800E5300A /* Mhub.swift */,
+				017FF459278E3FF6002751AA /* CzvMhubConfiguration.swift */,
 			);
 			path = MhubShortcuts;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				01C1E4E9278C6CC100E5300A /* MhubControlService.swift in Sources */,
 				017FF458278E0439002751AA /* PersistedProperty.swift in Sources */,
 				01C1E4BB278C6A0200E5300A /* AppDelegate.swift in Sources */,
+				017FF45A278E3FF6002751AA /* CzvMhubConfiguration.swift in Sources */,
 				01C1E4E6278C6B3700E5300A /* MhubStatusItemService.swift in Sources */,
 				01C1E4EE278C8C2900E5300A /* AsyncBlockOperation.swift in Sources */,
 				01C1E4EB278C75D800E5300A /* Mhub.swift in Sources */,
