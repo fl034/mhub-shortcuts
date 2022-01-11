@@ -15,7 +15,7 @@ class MhubControlService {
         self.baseUrl = baseUrl
     }
     
-    var onStatusUpdate: (()->())?
+    var onStatusUpdate: ((Result<Mhub.StatusResponse, Mhub.Error>)->())?
     
     // MARK: - Continuous updates
     
@@ -75,13 +75,13 @@ class MhubControlService {
     }
     
     func performSwitch(
-        for routes: Mhub.Routes,
+        for routing: Mhub.Routing,
         completion: @escaping (Mhub.StatusResponse?, [Mhub.Error])->()
     ) {
         let queue = OperationQueue()
         var errors = [Mhub.Error]()
         
-        let operations = routes.map { route in
+        let operations = routing.map { route in
             AsyncBlockOperation { finish in
                 self.performSwitch(output: route.key, input: route.value) { result in
                     if case .failure(let error) = result {

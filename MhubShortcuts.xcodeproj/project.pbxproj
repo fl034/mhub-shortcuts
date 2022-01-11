@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		017FF458278E0439002751AA /* PersistedProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017FF457278E0439002751AA /* PersistedProperty.swift */; };
 		01C1E4BB278C6A0200E5300A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4BA278C6A0200E5300A /* AppDelegate.swift */; };
 		01C1E4BD278C6A0200E5300A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4BC278C6A0200E5300A /* ViewController.swift */; };
 		01C1E4BF278C6A0200E5300A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01C1E4BE278C6A0200E5300A /* Assets.xcassets */; };
@@ -14,6 +15,10 @@
 		01C1E4CD278C6A0200E5300A /* MhubShortcutsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4CC278C6A0200E5300A /* MhubShortcutsTests.swift */; };
 		01C1E4D7278C6A0200E5300A /* MhubShortcutsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4D6278C6A0200E5300A /* MhubShortcutsUITests.swift */; };
 		01C1E4D9278C6A0200E5300A /* MhubShortcutsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4D8278C6A0200E5300A /* MhubShortcutsUITestsLaunchTests.swift */; };
+		01C1E4E6278C6B3700E5300A /* MhubStatusItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4E5278C6B3700E5300A /* MhubStatusItemService.swift */; };
+		01C1E4E9278C6CC100E5300A /* MhubControlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4E8278C6CC100E5300A /* MhubControlService.swift */; };
+		01C1E4EB278C75D800E5300A /* Mhub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4EA278C75D800E5300A /* Mhub.swift */; };
+		01C1E4EE278C8C2900E5300A /* AsyncBlockOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C1E4ED278C8C2900E5300A /* AsyncBlockOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		017FF457278E0439002751AA /* PersistedProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistedProperty.swift; sourceTree = "<group>"; };
 		01C1E4B7278C6A0200E5300A /* MhubShortcuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MhubShortcuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C1E4BA278C6A0200E5300A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01C1E4BC278C6A0200E5300A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +51,11 @@
 		01C1E4D2278C6A0200E5300A /* MhubShortcutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MhubShortcutsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C1E4D6278C6A0200E5300A /* MhubShortcutsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MhubShortcutsUITests.swift; sourceTree = "<group>"; };
 		01C1E4D8278C6A0200E5300A /* MhubShortcutsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MhubShortcutsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		01C1E4E5278C6B3700E5300A /* MhubStatusItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MhubStatusItemService.swift; sourceTree = "<group>"; };
+		01C1E4E7278C6C7B00E5300A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		01C1E4E8278C6CC100E5300A /* MhubControlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MhubControlService.swift; sourceTree = "<group>"; };
+		01C1E4EA278C75D800E5300A /* Mhub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mhub.swift; sourceTree = "<group>"; };
+		01C1E4ED278C8C2900E5300A /* AsyncBlockOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncBlockOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,11 +106,16 @@
 		01C1E4B9278C6A0200E5300A /* MhubShortcuts */ = {
 			isa = PBXGroup;
 			children = (
+				01C1E4EC278C8C0900E5300A /* Helpers */,
+				01C1E4E7278C6C7B00E5300A /* Info.plist */,
 				01C1E4BA278C6A0200E5300A /* AppDelegate.swift */,
 				01C1E4BC278C6A0200E5300A /* ViewController.swift */,
 				01C1E4BE278C6A0200E5300A /* Assets.xcassets */,
 				01C1E4C0278C6A0200E5300A /* Main.storyboard */,
 				01C1E4C3278C6A0200E5300A /* MhubShortcuts.entitlements */,
+				01C1E4E5278C6B3700E5300A /* MhubStatusItemService.swift */,
+				01C1E4E8278C6CC100E5300A /* MhubControlService.swift */,
+				01C1E4EA278C75D800E5300A /* Mhub.swift */,
 			);
 			path = MhubShortcuts;
 			sourceTree = "<group>";
@@ -119,6 +135,15 @@
 				01C1E4D8278C6A0200E5300A /* MhubShortcutsUITestsLaunchTests.swift */,
 			);
 			path = MhubShortcutsUITests;
+			sourceTree = "<group>";
+		};
+		01C1E4EC278C8C0900E5300A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				017FF457278E0439002751AA /* PersistedProperty.swift */,
+				01C1E4ED278C8C2900E5300A /* AsyncBlockOperation.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,7 +277,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				01C1E4BD278C6A0200E5300A /* ViewController.swift in Sources */,
+				01C1E4E9278C6CC100E5300A /* MhubControlService.swift in Sources */,
+				017FF458278E0439002751AA /* PersistedProperty.swift in Sources */,
 				01C1E4BB278C6A0200E5300A /* AppDelegate.swift in Sources */,
+				01C1E4E6278C6B3700E5300A /* MhubStatusItemService.swift in Sources */,
+				01C1E4EE278C8C2900E5300A /* AsyncBlockOperation.swift in Sources */,
+				01C1E4EB278C75D800E5300A /* Mhub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +455,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MhubShortcuts/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -451,6 +482,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MhubShortcuts/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

@@ -8,11 +8,6 @@
 import Foundation
 
 struct Mhub {
-    enum State {
-        case offline
-        case online(Routes)
-    }
-    
     enum Input: String, Codable, Hashable {
         case i1 = "1"
         case i2 = "2"
@@ -39,7 +34,7 @@ struct Mhub {
         }
     }
     
-    typealias Routes = [Output: Input]
+    typealias Routing = [Output: Input]
     
     // MARK: - API
     
@@ -71,5 +66,15 @@ struct Mhub {
     
     struct ResponseError: Codable {
         let code: String?
+    }
+}
+
+extension Mhub.StatusResponse {
+    var routing: Mhub.Routing {
+        zones?.reduce(into: Mhub.Routing()) { partialResult, zone in
+            guard let input = zone.state?.first?.inputId,
+                  let output = zone.state?.first?.outputId else { return }
+            partialResult[output] = input
+        } ?? [:]
     }
 }

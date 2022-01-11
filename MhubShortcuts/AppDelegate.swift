@@ -10,11 +10,10 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    
-
+    lazy var statusItemService = MhubStatusItemService()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        _ = statusItemService 
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
