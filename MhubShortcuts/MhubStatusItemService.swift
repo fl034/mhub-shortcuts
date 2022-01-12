@@ -20,64 +20,106 @@ class MhubStatusItemService {
     
     private var statusItem: NSStatusItem?
     
-    @Persisted(as: "selectedRouting.json", in: .applicationSupportDirectory)
-    private var selectedRouting: Mhub.Routing = CzvMhubConfiguration.hall.routing
-    
     func setup() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem?.button?.imagePosition = .imageLeft
         statusItem?.button?.title = ""
         
-        mhubControlService.onStatusUpdate = onStatusUpdate(result:)
         mhubControlService.startStatusUpdateObserving()
+        updateStatusItem(state: .offline, text: "", statusResponse: nil)
+        mhubControlService.onStatusUpdate = onStatusUpdate(result:)
     }
     
     func onStatusUpdate(result: Result<Mhub.StatusResponse, Mhub.Error>) {
         switch result {
         case .success(let response):
-            let selectedCzvRouting = CzvMhubConfiguration(from: selectedRouting)
-            if response.routing == selectedRouting {
-                updateStatusItem(state: .selectedConfigActive, text: selectedCzvRouting?.title)
+            if let selectedCzvRouting = CzvMhubConfiguration(from: response.routing) {
+                updateStatusItem(state: .knownRouting, text: selectedCzvRouting.title, statusResponse: response)
             } else {
-                updateStatusItem(state: .selectedConfigInactive, text: selectedCzvRouting?.title)
+                updateStatusItem(state: .unknownRouting, text: nil, statusResponse: response)
             }
         case .failure(let error):
             switch error {
             case .networking:
-                updateStatusItem(state: .error, text: "Offline")
+                updateStatusItem(state: .error, text: "Offline", statusResponse: nil)
             default:
-                updateStatusItem(state: .error, text: "Fehler")
+                updateStatusItem(state: .error, text: "Fehler", statusResponse: nil)
             }
         }
     }
     
-    func updateStatusItem(state: MhubStatusItemState, text: String? = nil) {
+    func updateStatusItem(state: MhubStatusItemState, text: String? = nil, statusResponse: Mhub.StatusResponse?) {
         statusItem?.button?.image = state.image
         statusItem?.button?.title = text ?? ""
+        setupMenu(with: statusResponse)
     }
+    
+    // MARK: - Menu
+    
+    func setupMenu(with statusResponse: Mhub.StatusResponse? = nil) {
+        let menu = NSMenu()
+                       
+        menu.addItem(NSMenuItem(title: "HDMI Matrix", action: nil, keyEquivalent: ""))
+        menu.addItem(NSMenuItem.separator())
+        
+        for config in CzvMhubConfiguration.allCases {
+            let item = NSMenuItem(title: config.title, action: #selector(didSelectConfigFromMenu), keyEquivalent: "")
+            item.isEnabled = true
+            item.target = self
+            
+            if statusResponse?.routing.contains(config.routing) ?? false {
+                item.state = .on
+            } else {
+                item.state = .off
+            }
+            
+            item.tag = config.menuItemTag
+            menu.addItem(item)
+        }
+        
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(NSMenuItem(title: "Beenden", action: #selector(NSApplication.terminate), keyEquivalent: "q"))
+        
+        statusItem?.menu = menu
+    }
+    
+    @objc func didSelectConfigFromMenu(_ sender: NSMenuItem) {
+        guard let config = CzvMhubConfiguration.init(from: sender.tag) else {
+            updateStatusItem(state: .error, text: "Wrong tag", statusResponse: nil)
+            setupMenu()
+            return
+        }
+        
+        updateStatusItem(state: .loading, text: config.title, statusResponse: nil)
+        
+        mhubControlService.performSwitch(for: config.routing) { [weak self] statusResponse, errors in
+            if let statusResponse = statusResponse {
+                self?.onStatusUpdate(result: .success(statusResponse))
+            } else {
+                self?.onStatusUpdate(result: .failure(errors.last ?? .noDataObject(nil)))
+            }
+        }
+    }
+
 }
 
 enum MhubStatusItemState {
     case offline
     case error
-    case selectedConfigActive
-    case selectedConfigInactive
+    case loading
+    case knownRouting
+    case unknownRouting
     
     var image: NSImage? {
-        if #available(macOS 11.0, *) {
-            switch self {
-            case .offline, .error:
-                return NSImage(systemSymbolName: "rectangle.slash", accessibilityDescription: nil)?
-                    .withSymbolConfiguration(.init(pointSize: 14, weight: .black, scale: .medium))
-            case .selectedConfigActive:
-                return NSImage(systemSymbolName: "checkmark.rectangle.fill", accessibilityDescription: nil)?
-                    .withSymbolConfiguration(.init(pointSize: 14, weight: .black, scale: .medium))
-            case .selectedConfigInactive:
-                return NSImage(systemSymbolName: "xmark.rectangle", accessibilityDescription: nil)?
-                    .withSymbolConfiguration(.init(pointSize: 14, weight: .black, scale: .medium))
-            }
-        } else {
-            return NSImage()
+        switch self {
+        case .loading:
+            return #imageLiteral(resourceName: "rectangle.dashed")
+        case .offline, .error:
+            return #imageLiteral(resourceName: "rectangle.slash")
+        case .knownRouting:
+            return #imageLiteral(resourceName: "checkmark.rectangle.fill")
+        case .unknownRouting:
+            return #imageLiteral(resourceName: "xmark.rectangle")
         }
     }
 }
