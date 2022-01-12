@@ -40,7 +40,7 @@
 
 /* Begin PBXFileReference section */
 		017FF459278E3FF6002751AA /* CzvMhubConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CzvMhubConfiguration.swift; sourceTree = "<group>"; };
-		01C1E4B7278C6A0200E5300A /* MhubShortcuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MhubShortcuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01C1E4B7278C6A0200E5300A /* HDMI Matrix Steuerung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HDMI Matrix Steuerung.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C1E4BA278C6A0200E5300A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01C1E4BC278C6A0200E5300A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		01C1E4BE278C6A0200E5300A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		01C1E4B8278C6A0200E5300A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				01C1E4B7278C6A0200E5300A /* MhubShortcuts.app */,
+				01C1E4B7278C6A0200E5300A /* HDMI Matrix Steuerung.app */,
 				01C1E4C8278C6A0200E5300A /* MhubShortcutsTests.xctest */,
 				01C1E4D2278C6A0200E5300A /* MhubShortcutsUITests.xctest */,
 			);
@@ -163,7 +163,7 @@
 			);
 			name = MhubShortcuts;
 			productName = MhubShortcuts;
-			productReference = 01C1E4B7278C6A0200E5300A /* MhubShortcuts.app */;
+			productReference = 01C1E4B7278C6A0200E5300A /* HDMI Matrix Steuerung.app */;
 			productType = "com.apple.product-type.application";
 		};
 		01C1E4C7278C6A0200E5300A /* MhubShortcutsTests */ = {
@@ -469,7 +469,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.czvcrailsheim.MhubShortcuts;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HDMI Matrix Steuerung";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -499,7 +499,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.czvcrailsheim.MhubShortcuts;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HDMI Matrix Steuerung";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
