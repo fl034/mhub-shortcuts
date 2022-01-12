@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 class MhubControlService {
 
@@ -50,6 +51,20 @@ class MhubControlService {
         }
     }
     
+    @objc func onWakeNote(note: NSNotification) {
+        stopStatusUpdateObserving()
+        startStatusUpdateObserving()
+    }
+    
+    func setupWakeObserver() {
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(onWakeNote(note:)),
+            name: NSWorkspace.didWakeNotification,
+            object: nil
+        )
+    }
+    
     // MARK: - Networking general
     
     private lazy var urlSession = URLSession(configuration: .default)
@@ -64,10 +79,13 @@ class MhubControlService {
         url: URL,
         completion: @escaping (Result<ResponseData, Mhub.Error>)->()
     ) {
+        print("MHUB Request: \(url.absoluteString)")
         urlSession.dataTask(
             with: url,
             completionHandler: { data, response, error in
                 DispatchQueue.main.async {
+                    print("MHUB Response: \(String(data: data ?? Data(), encoding: .utf8) ?? "")")
+                    
                     guard let data = data else {
                         completion(.failure(.networking(error)))
                         return
@@ -109,6 +127,8 @@ class MhubControlService {
         completion: @escaping (Mhub.StatusResponse?, [Mhub.Error])->()
     ) {
         let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        
         var errors = [Mhub.Error]()
         
         let operations = routing.map { route in
@@ -140,7 +160,10 @@ class MhubControlService {
             complete()
         } else {
             queue.onCompletion {
-                complete()
+                // Device returns old config directly after switching.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    complete()
+                }
             }
         }
     }
