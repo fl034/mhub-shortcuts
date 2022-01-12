@@ -64,7 +64,7 @@ enum CzvMhubConfiguration: CaseIterable {
     
     init?(from routing: Mhub.Routing) {
         for element in Self.allCases {
-            if element.routing == routing {
+            if element.routing == routing || routing.contains(element.routing) {
                 self = element
                 return
             }

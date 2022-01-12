@@ -78,3 +78,15 @@ extension Mhub.StatusResponse {
         } ?? [:]
     }
 }
+
+extension Mhub.Routing {
+    /// Checks if caller contains the other routing.
+    func contains(_ other: Mhub.Routing) -> Bool {
+        for (output, input) in other {
+            if self[output] != input {
+                return false
+            }
+        }
+        return true
+    }
+}
