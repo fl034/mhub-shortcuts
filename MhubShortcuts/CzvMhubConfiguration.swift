@@ -19,7 +19,8 @@ enum CzvMhubConfiguration: CaseIterable {
                 .c: .i3,
                 .d: .i3,
                 .e: .i3,
-                .f: .i3
+                .f: .i3,
+                .g: .i3
             ]
         case .hall:
             return [
@@ -27,7 +28,8 @@ enum CzvMhubConfiguration: CaseIterable {
                 .c: .i1,
                 .d: .i1,
                 .e: .i1,
-                .f: .i1
+                .f: .i1,
+                .g: .i1
             ]
         }
     }
@@ -39,6 +41,25 @@ enum CzvMhubConfiguration: CaseIterable {
         case .hall:
             return "Saal"
         }
+    }
+    
+    var menuItemTag: Int {
+        switch self {
+        case .livestreamOffice:
+            return 100
+        case .hall:
+            return 200
+        }
+    }
+    
+    init?(from tag: Int) {
+        for element in Self.allCases {
+            if element.menuItemTag == tag {
+                self = element
+                return
+            }
+        }
+        return nil
     }
     
     init?(from routing: Mhub.Routing) {
