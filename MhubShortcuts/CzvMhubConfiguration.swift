@@ -10,6 +10,7 @@ import Foundation
 enum CzvMhubConfiguration: CaseIterable {
     case livestreamOffice
     case hall
+    case appleTV
     
     var routing: Mhub.Routing {
         switch self {
@@ -31,6 +32,15 @@ enum CzvMhubConfiguration: CaseIterable {
                 .f: .i1,
                 .g: .i1
             ]
+        case .appleTV:
+            return [
+                .a: .i8,
+                .c: .i8,
+                .d: .i8,
+                .e: .i8,
+                .f: .i8,
+                .g: .i8
+            ]
         }
     }
     
@@ -40,6 +50,8 @@ enum CzvMhubConfiguration: CaseIterable {
             return "Büro"
         case .hall:
             return "Saal"
+        case .appleTV:
+            return "Apple TV"
         }
     }
     
@@ -49,7 +61,24 @@ enum CzvMhubConfiguration: CaseIterable {
             return 100
         case .hall:
             return 200
+        case .appleTV:
+            return 999
         }
+    }
+    
+    var keyEquivalent: String {
+        switch self {
+        case .livestreamOffice:
+            return "1"
+        case .hall:
+            return "2"
+        case .appleTV:
+            return "3"
+        }
+    }
+    
+    static var configUrl: URL {
+        URL(string: "https://10.0.0.60")!
     }
     
     init?(from tag: Int) {

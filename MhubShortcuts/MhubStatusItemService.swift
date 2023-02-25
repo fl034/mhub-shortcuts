@@ -58,12 +58,20 @@ class MhubStatusItemService {
     
     func setupMenu(with statusResponse: Mhub.StatusResponse? = nil) {
         let menu = NSMenu()
-                       
-        menu.addItem(NSMenuItem(title: "HDMI Matrix", action: nil, keyEquivalent: ""))
+        
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        menu.addItem(NSMenuItem(title: "HDMI Matrix Steuerung (v\(appVersion ?? ""))", action: nil, keyEquivalent: ""))
+        
+        let webConfigItem = NSMenuItem(title: "Weboberfläche öffnen", action: #selector(didSelectOpenWebConfig), keyEquivalent: "")
+        webConfigItem.target = self
+        menu.addItem(webConfigItem)
+        
         menu.addItem(NSMenuItem.separator())
         
+        menu.addItem(NSMenuItem(title: "Quelle wählen", action: nil, keyEquivalent: ""))
+        
         for config in CzvMhubConfiguration.allCases {
-            let item = NSMenuItem(title: config.title, action: #selector(didSelectConfigFromMenu), keyEquivalent: "")
+            let item = NSMenuItem(title: config.title, action: #selector(didSelectConfigFromMenu), keyEquivalent: config.keyEquivalent)
             item.isEnabled = true
             item.target = self
             
@@ -81,6 +89,10 @@ class MhubStatusItemService {
         menu.addItem(NSMenuItem(title: "Beenden", action: #selector(NSApplication.terminate), keyEquivalent: "q"))
         
         statusItem?.menu = menu
+    }
+    
+    @objc func didSelectOpenWebConfig(_ sender: NSMenuItem) {
+        NSWorkspace.shared.open(CzvMhubConfiguration.configUrl)
     }
     
     @objc func didSelectConfigFromMenu(_ sender: NSMenuItem) {
